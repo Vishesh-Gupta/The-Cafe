@@ -1,26 +1,29 @@
-
-package com.example.android.thecafe
+package com.example.cafe
 
 import android.os.Bundle
-import android.view.View
 import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.TextView
+import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 
-/**
- * This app displays an order form to order coffee.
- */
 class MainActivity : AppCompatActivity() {
-    private var quantity = 0
-    private fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
+//        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+//            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+//            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+//            insets
+//        }
     }
 
+    private var quantity = 0
     /**
      * This method is called when the plus button is clicked.
      */
-    fun increment(view: View?) {
+    fun increment() {
         quantity += 1
         display(quantity)
     }
@@ -28,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * This method is called when the minus button is clicked.
      */
-    fun decrement(view: View?) {
+    fun decrement() {
         if (quantity < 0) {
             return
         }
@@ -39,13 +42,13 @@ class MainActivity : AppCompatActivity() {
     /**
      * This method is called when the order button is clicked.
      */
-    fun submitOrder(view: View?) {
-        val nameField = findViewById(R.id.name_field) as EditText
+    fun submitOrder() {
+        val nameField: EditText = findViewById(R.id.name_field)
         val nameEditable = nameField.getText()
         val name = nameEditable.toString()
-        val whippedCreamCheckBox = findViewById(R.id.whipped_cream_checkbox) as CheckBox
+        val whippedCreamCheckBox: CheckBox = findViewById(R.id.whipped_cream_checkbox)
         val hasWhippedCream = whippedCreamCheckBox.isChecked
-        val chocolateCheckBox = findViewById(R.id.chocolate_checkbox) as CheckBox
+        val chocolateCheckBox: CheckBox = findViewById(R.id.chocolate_checkbox)
         val hasChocolate = chocolateCheckBox.isChecked
         val price = calculatePrice(hasWhippedCream, hasChocolate)
         createOrderSummary(name, price, hasWhippedCream, hasChocolate)
@@ -95,9 +98,28 @@ class MainActivity : AppCompatActivity() {
      * This method displays the given quantity value on the screen.
      */
     private fun display(numberOfCoffees: Int) {
-        val quantityTextView = findViewById(
-                R.id.quantity_text_view) as TextView
+        val quantityTextView: TextView = findViewById(
+                    R.id.quantity_text_view)
 
         quantityTextView.text = "$numberOfCoffees"
     }
 }
+
+//
+//package com.example.android.cafe
+//
+//import android.os.Bundle
+//import android.view.View
+//import android.widget.CheckBox
+//import android.widget.EditText
+//import android.widget.TextView
+//
+///**
+// * This app displays an order form to order coffee.
+// */
+//class MainActivity : ComponentActivity() {
+//
+
+//
+
+//}
